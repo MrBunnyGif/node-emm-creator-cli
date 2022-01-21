@@ -1,6 +1,5 @@
 import fs from 'fs';
 import sizeOf from 'image-size';
-import copy from 'copy-to-clipboard';
 
 const files = fs.readdirSync('./src');
 let html = []
@@ -12,4 +11,3 @@ files.forEach(file => {
 	)
 })
 console.log("🚀 ~ file: app.js ~ line 6 ~ html", html)
-// copy('oioi')
