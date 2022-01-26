@@ -35,14 +35,13 @@ function joinImages(files) {
 			rowWithColumns.push(`${tdElement}`)
 		}
 		if (isRowComplete(rowWithColumnsDimensions)) {
-			console.log('is complete: ', rowWithColumnsDimensions)
 			emmRows.push(
 				`<tr><td>${renderTable(rowWithColumns)}</td></tr>`
 			)
 			rowWithColumns = []
 			rowWithColumnsDimensions = []
 		}
-		if(dimensions.width >= largestWidth)
+		else if(dimensions.width >= largestWidth)
 		emmRows.push(
 			`<tr>${tdElement}</tr>`
 		)
