@@ -17,6 +17,8 @@ function scriptFunction() {
 		document.getElementById('shadow').classList.add('remove')
 		if (urlValue)
 			currTd.innerHTML = `<a href="${urlValue}" target="_blank">${currTd.innerHTML}</a>`
+		urlValue = undefined
+		currTd = undefined
 	}
 	function btnFunctions() {
 		const input = document.querySelector('input')
@@ -27,9 +29,9 @@ function scriptFunction() {
 			closeModal()
 		}
 	}
-	function openModal() {
+	function openModal(url = "https://") {
 		const input = document.querySelector('input')
-		input.value = "https://"
+		input.value = url
 		document.querySelector('button').addEventListener('click', btnFunctions)
 		document.getElementById('shadow').classList.remove('remove')
 	}
@@ -39,7 +41,7 @@ function scriptFunction() {
 	document.querySelectorAll('.editable').forEach(td => {
 		td.addEventListener('click', e => {
 			currTd = e.path[1]
-			openModal(urlValue)
+			openModal(currTd.href)
 		})
 	})
 }
