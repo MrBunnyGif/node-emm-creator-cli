@@ -12,26 +12,33 @@ let largestWidth = sizeOf(`./src/${files[0]}`).width;
 function scriptFunction() {
 	let urlValue
 	let currTd
+	let hasLink = false
 
 	function closeModal() {
 		document.getElementById('shadow').classList.add('remove')
-		if (urlValue)
+
+		if (urlValue && !hasLink) {
 			currTd.innerHTML = `<a href="${urlValue}" target="_blank">${currTd.innerHTML}</a>`
+		}
+		else if (hasLink) {
+			currTd.href = urlValue
+		}
+
 		urlValue = undefined
 		currTd = undefined
+		hasLink = false
 	}
 	function btnFunctions() {
 		const input = document.querySelector('input')
-		if (input.value.length <= 8)
-			input.focus()
-		else {
 			urlValue = input.value
 			closeModal()
-		}
 	}
-	function openModal(url = "https://") {
+	function openModal(url) {
 		const input = document.querySelector('input')
-		input.value = url
+
+		url ? hasLink = true : null
+		input.value = url || "https://"
+
 		document.querySelector('button').addEventListener('click', btnFunctions)
 		document.getElementById('shadow').classList.remove('remove')
 	}
