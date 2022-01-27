@@ -15,7 +15,8 @@ function scriptFunction() {
 
 	function closeModal() {
 		document.getElementById('shadow').classList.add('remove')
-		currTd.innerHTML = `<a href="${urlValue}" target="_blank">${currTd.innerHTML}</a>`
+		if (urlValue)
+			currTd.innerHTML = `<a href="${urlValue}" target="_blank">${currTd.innerHTML}</a>`
 	}
 	function btnFunctions() {
 		const input = document.querySelector('input')
