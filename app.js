@@ -10,15 +10,19 @@ let rowWithColumnsDimensions = []
 let largestWidth = sizeOf(`./src/${files[0]}`).width;
 
 function scriptFunction() {
+	let urlValue
+	let currTd
+
 	function closeModal() {
 		document.getElementById('shadow').classList.add('remove')
+		currTd.innerHTML = `<a href="${urlValue}" target="_blank">${currTd.innerHTML}</a>`
 	}
 	function btnFunctions() {
-		const btn = document.querySelector('button')
 		const input = document.querySelector('input')
 		if (input.value.length === 0)
 			input.focus()
 		else {
+			urlValue = input.value
 			closeModal()
 		}
 	}
@@ -27,11 +31,12 @@ function scriptFunction() {
 		document.getElementById('shadow').classList.remove('remove')
 	}
 
-	document.getElementById('shadow').addEventListener('click', e => e.target.id === 'shadow' && closeModal())
+	document.getElementById('shadow')
+		.addEventListener('click', e => e.target.id === 'shadow' && closeModal())
 	document.querySelectorAll('.editable').forEach(td => {
 		td.addEventListener('click', e => {
-			const currTd = e.path[1]
-			openModal()
+			currTd = e.path[1]
+			openModal(urlValue)
 		})
 	})
 }
