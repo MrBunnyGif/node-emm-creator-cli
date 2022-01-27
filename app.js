@@ -19,7 +19,7 @@ function scriptFunction() {
 	}
 	function btnFunctions() {
 		const input = document.querySelector('input')
-		if (input.value.length === 0)
+		if (input.value.length <= 8)
 			input.focus()
 		else {
 			urlValue = input.value
@@ -27,6 +27,8 @@ function scriptFunction() {
 		}
 	}
 	function openModal() {
+		const input = document.querySelector('input')
+		input.value = "https://"
 		document.querySelector('button').addEventListener('click', btnFunctions)
 		document.getElementById('shadow').classList.remove('remove')
 	}
