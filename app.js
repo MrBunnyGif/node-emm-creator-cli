@@ -12,6 +12,7 @@ let largestWidth = sizeOf(`./src/${files[0]}`).width;
 function scriptFunction() {
 	let urlValue
 	let currTd
+	let path = []
 	let hasLink = false
 
 	function closeModal() {
@@ -20,8 +21,11 @@ function scriptFunction() {
 		if (urlValue && !hasLink) {
 			currTd.innerHTML = `<a href="${urlValue}" target="_blank">${currTd.innerHTML}</a>`
 		}
-		else if (hasLink) {
+		else if (urlValue && hasLink) {
 			currTd.href = urlValue
+		}
+		else if (urlValue === '') {
+			path[2].innerHTML = path[1].innerHTML
 		}
 
 		urlValue = undefined
@@ -30,14 +34,15 @@ function scriptFunction() {
 	}
 	function btnFunctions() {
 		const input = document.querySelector('input')
-			urlValue = input.value
-			closeModal()
+		urlValue = input.value
+		closeModal()
 	}
 	function openModal(url) {
 		const input = document.querySelector('input')
 
 		url ? hasLink = true : null
-		input.value = url || "https://"
+		if(url)
+		input.value = url
 
 		document.querySelector('button').addEventListener('click', btnFunctions)
 		document.getElementById('shadow').classList.remove('remove')
@@ -48,6 +53,7 @@ function scriptFunction() {
 	document.querySelectorAll('.editable').forEach(td => {
 		td.addEventListener('click', e => {
 			currTd = e.path[1]
+			path = e.path
 			openModal(currTd.href)
 		})
 	})
@@ -97,7 +103,7 @@ getEmailSize(files)
 joinImages(files)
 
 
-const htmlContent = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${fileTitle}</title><style>div#shadow{position:fixed;top:0;bottom:0;left:0;display:flex;right:0;background:#0000006b;justify-content:center;align-items:center}div#card{background:#fff;width:max-content;padding:40px;border-radius:8px}.remove{display:none!important}</style></head><body><div id="shadow" class="remove"><div id="card"><input placeholder="Insira o link da imagem" /><button>linkar</button></div></div>${renderTable(emmRows)}<script>(${script})()</script></body></html>`
+const htmlContent = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${fileTitle}</title><style>div#shadow{position:fixed;top:0;bottom:0;left:0;display:flex;right:0;background:#0000006b;justify-content:center;align-items:center}div#card{background:#fff;width:max-content;padding:40px;border-radius:8px}.remove{display:none!important}</style></head><body><div id="shadow" class="remove"><div id="card"><input placeholder="https://" /><button>linkar</button></div></div>${renderTable(emmRows)}<script>(${script})()</script></body></html>`
 
 fs.writeFile('index.html', htmlContent, function (err) {
 	if (err) throw err;
