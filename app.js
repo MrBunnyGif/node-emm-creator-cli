@@ -9,12 +9,29 @@ let rowWithColumns = []
 let rowWithColumnsDimensions = []
 let largestWidth = sizeOf(`./src/${files[0]}`).width;
 
-
 function scriptFunction() {
+	function closeModal() {
+		document.getElementById('shadow').classList.add('remove')
+	}
+	function btnFunctions() {
+		const btn = document.querySelector('button')
+		const input = document.querySelector('input')
+		if (input.value.length === 0)
+			input.focus()
+		else {
+			closeModal()
+		}
+	}
+	function openModal() {
+		document.querySelector('button').addEventListener('click', btnFunctions)
+		document.getElementById('shadow').classList.remove('remove')
+	}
+
+	document.getElementById('shadow').addEventListener('click', e => e.target.id === 'shadow' && closeModal())
 	document.querySelectorAll('.editable').forEach(td => {
 		td.addEventListener('click', e => {
 			const currTd = e.path[1]
-			currTd.innerHTML = `<a href="https://google.com">${currTd.innerHTML}</a>`
+			openModal()
 		})
 	})
 }
@@ -63,7 +80,7 @@ getEmailSize(files)
 joinImages(files)
 
 
-const htmlContent = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${fileTitle}</title></head><body>${renderTable(emmRows)}<script>(${script})()</script></body></html>`
+const htmlContent = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${fileTitle}</title><style>div#shadow{position:fixed;top:0;bottom:0;left:0;display:flex;right:0;background:#0000006b;justify-content:center;align-items:center}div#card{background:#fff;width:max-content;padding:40px;border-radius:8px}.remove{display:none!important}</style></head><body><div id="shadow" class="remove"><div id="card"><input placeholder="Insira o link da imagem" /><button>linkar</button></div></div>${renderTable(emmRows)}<script>(${script})()</script></body></html>`
 
 fs.writeFile('index.html', htmlContent, function (err) {
 	if (err) throw err;
