@@ -39,8 +39,23 @@ module.exports = () => {
 		document.getElementById('shadow').classList.remove('remove')
 	}
 
-	document.getElementById('shadow')
-		.addEventListener('click', e => e.target.id === 'shadow' && closeModal())
+	function exportEmm() {
+		var aFileParts = ['<html></html>'];
+		let file = new Blob(aFileParts, { type: 'text/html' });
+		let a = document.createElement("a"),
+			url = URL.createObjectURL(file);
+
+		a.href = url;
+		a.download = 'emm';
+		document.body.appendChild(a);
+		a.click();
+		setTimeout(function () {
+			document.body.removeChild(a);
+			window.URL.revokeObjectURL(url);
+		}, 0);
+	}
+
+	document.getElementById('shadow').addEventListener('click', e => e.target.id === 'shadow' && closeModal())
 	document.querySelectorAll('.editable').forEach(td => {
 		td.addEventListener('click', e => {
 			currTd = e.path[1]
@@ -48,4 +63,5 @@ module.exports = () => {
 			openModal(currTd.href)
 		})
 	})
+	document.querySelector('#export-btn').addEventListener('click', exportEmm)
 }

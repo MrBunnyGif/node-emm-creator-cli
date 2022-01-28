@@ -29,10 +29,19 @@
 		.remove {
 			display: none !important
 		}
+
+		td {
+			cursor: crosshair;
+		}
 	</style>
 </head>
 
 <body>
+	<button id="export-btn">Exportar</button>
 	<div id="shadow" class="remove">
-		<div id="card"><input placeholder="https://" /><button>linkar</button></div>
+		<div id="card">
+			<input id="link-anchor" placeholder="https://" />
+			<button>linkar</button>
+		</div>
 	</div>
+	<!-- Footer criado em app.js -->
