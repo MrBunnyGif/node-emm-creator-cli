@@ -1,5 +1,5 @@
 const fs = require('fs')
-const sizeOf = require('image-size')
+const sizeOf = require('image-size');
 const scriptFunction = require('./front-scripts')
 
 const files = fs.readdirSync('./src');
@@ -10,6 +10,7 @@ let emmRows = []
 let rowWithColumns = []
 let rowWithColumnsDimensions = []
 let largestWidth = sizeOf(`./src/${files[0]}`).width;
+let htmlContent = ''
 
 function renderTable(rows) {
 	return `<table style="margin: auto;" border="0" cellspacing="0" cellpadding="0" bgcolor="#DDDDDD">${rows.join('')}</table>`
@@ -53,9 +54,13 @@ function joinImages(files) {
 getEmailSize(files)
 joinImages(files)
 
-
-const htmlContent = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${fileTitle}</title><style>div#shadow{position:fixed;top:0;bottom:0;left:0;display:flex;right:0;background:#0000006b;justify-content:center;align-items:center}div#card{background:#fff;width:max-content;padding:40px;border-radius:8px}.remove{display:none!important}</style></head><body><div id="shadow" class="remove"><div id="card"><input placeholder="https://" /><button>linkar</button></div></div>${renderTable(emmRows)}<script>(${script})()</script></body></html>`
-
-fs.writeFile('index.html', htmlContent, function (err) {
-	if (err) throw err;
-}); 
+fs.readFile('./editor.html', 'utf8', async (err, data) => {
+	if (err) {
+		console.error(err)
+		return
+	}
+	htmlContent = data + `${renderTable(emmRows)}<script>(${script})()</script></body></html>`
+	fs.writeFile('index.html', htmlContent, function (err) {
+		if (err) throw err;
+	});
+})
