@@ -24,13 +24,14 @@ function scriptFunction() {
 		else if (urlValue && hasLink) {
 			currTd.href = urlValue
 		}
-		else if (urlValue === '') {
+		else if (urlValue === '' && hasLink) {
 			path[2].innerHTML = path[1].innerHTML
 		}
 
 		urlValue = undefined
 		currTd = undefined
 		hasLink = false
+		document.querySelector('input').value = ''
 	}
 	function btnFunctions() {
 		const input = document.querySelector('input')
@@ -41,8 +42,9 @@ function scriptFunction() {
 		const input = document.querySelector('input')
 
 		url ? hasLink = true : null
-		if(url)
-		input.value = url
+		if (url) {
+			input.value = url
+		}
 
 		document.querySelector('button').addEventListener('click', btnFunctions)
 		document.getElementById('shadow').classList.remove('remove')
