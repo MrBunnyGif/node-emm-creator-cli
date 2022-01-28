@@ -31,7 +31,7 @@ function getEmailSize(files) {
 function joinImages(files) {
 	files.forEach((file, i) => {
 		const dimensions = sizeOf(`./src/${file}`);
-		const tdElement = `<td class="editable"><img style="display: block; border: 0;" align="top" width="${dimensions.width}" height="${dimensions.height}"	src="/src/${file}" alt="${fileTitle}" /></td>`
+		const tdElement = `<td class="editable"><img style="display: block; border: 0;" align="top" width="${dimensions.width}" height="${dimensions.height}"	src="./src/${file}" alt="${fileTitle}" /></td>`
 
 		if (dimensions.width < largestWidth) {
 			rowWithColumnsDimensions.push(dimensions.width)

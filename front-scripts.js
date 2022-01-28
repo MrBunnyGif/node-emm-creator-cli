@@ -40,7 +40,7 @@ module.exports = () => {
 	}
 
 	function exportEmm() {
-		var aFileParts = ['<html></html>'];
+		var aFileParts = [`<html><head></head><body>${document.querySelector('table').outerHTML}</body></html>`];
 		let file = new Blob(aFileParts, { type: 'text/html' });
 		let a = document.createElement("a"),
 			url = URL.createObjectURL(file);
