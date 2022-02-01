@@ -35,7 +35,7 @@ module.exports = () => {
 			input.value = url
 		}
 
-		document.querySelector('button').addEventListener('click', btnFunctions)
+		document.querySelector('#anchor-btn').addEventListener('click', btnFunctions)
 		document.getElementById('shadow').classList.remove('remove')
 	}
 
