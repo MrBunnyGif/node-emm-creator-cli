@@ -13,7 +13,7 @@ let largestWidth = sizeOf(`./src/${files[0]}`).width;
 let htmlContent = ''
 
 function renderTable(rows) {
-	return `<table style="margin: auto;" border="0" cellspacing="0" cellpadding="0" bgcolor="#DDDDDD">${rows.join('')}</table>`
+	return `<table width="100%" height="100%" style="margin: auto;" border="0" cellspacing="0" cellpadding="0" bgcolor="#d0d4d7"><tr><td bgcolor="#d0d4d7"><table style="margin: auto;" border="0" cellspacing="0" cellpadding="0" bgcolor="#DDDDDD">${rows.join('')}</table></td></tr></table>`
 }
 
 function isRowComplete(dimensions) {
